@@ -11,10 +11,12 @@ class HomeSucess extends StatelessWidget {
     required this.data,
     required this.starCountRef,
     required this.id,
+    required this.mac,
   }) : super(key: key);
 
   final Map data;
   final String id;
+  final String mac;
   final DatabaseReference starCountRef;
 
   @override
@@ -29,7 +31,7 @@ class HomeSucess extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        const Text(
+         const Text(
           "Hy User",
           style: TextStyle(
             fontSize: 30,

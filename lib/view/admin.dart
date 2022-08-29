@@ -1,7 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../model/mac_model.dart';
@@ -11,9 +15,37 @@ import '../widgets/state/loading.dart';
 import '../widgets/state/error.dart';
 import 'login_admin.dart';
 
-class Admin extends StatelessWidget {
+class Admin extends StatefulWidget {
   final String id;
   const Admin({super.key, required this.id});
+
+  @override
+  State<Admin> createState() => _AdminState();
+}
+
+class _AdminState extends State<Admin> {
+  @override
+  void initState() {
+    get();
+    FirebaseMessaging.onMessage.listen((message) {
+      log('Got a message whilst in the foreground!');
+      log('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        log('Message also contained a notification: ${message.notification?.body ?? "kosong"}');
+        String title = message.notification?.title ?? "Notif";
+        String body = message.notification?.body ?? "kosong";
+        Get.snackbar(title, body);
+      }
+    });
+    super.initState();
+  }
+
+  Future get() async {
+    final box = GetStorage();
+    log(box.read("nama"));
+    await FirebaseMessaging.instance.subscribeToTopic(box.read("nama"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +87,8 @@ class Admin extends StatelessWidget {
                           isLogin: false,
                           isAdmin: false,
                           isActive: false,
-                          value: valueC.text, nama: nameC.text,
+                          value: valueC.text,
+                          nama: nameC.text,
                         ).toJson(),
                       );
                   valueC.clear();
@@ -88,7 +121,7 @@ class Admin extends StatelessWidget {
               Icons.logout,
             ),
             onPressed: () async {
-              await firestore.collection('mac').doc(id).update(
+              await firestore.collection('mac').doc(widget.id).update(
                 {
                   "isLogin": false,
                 },
@@ -103,6 +136,8 @@ class Admin extends StatelessWidget {
               box.remove(
                 'mac',
               );
+              await FirebaseMessaging.instance
+                  .unsubscribeFromTopic(box.read("nama"));
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(

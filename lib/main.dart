@@ -24,15 +24,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await FirebaseMessaging.instance.subscribeToTopic('myTopic');
-
   await GetStorage.init();
-  final box = GetStorage();
-  String? isLogin = box.read('isLogin');
 
-  if (isLogin != null) {
+    
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  }
 
   runApp(const MyApp());
 }

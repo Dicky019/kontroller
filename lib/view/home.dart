@@ -13,15 +13,18 @@ import '../widgets/state/error.dart';
 import '../widgets/state/loading.dart';
 
 // ignore_for_file: use_build_context_synchronously
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   final String id, mac;
   const Home({super.key, required this.id, required this.mac});
-  @override
-  Widget build(BuildContext context) {
-    FirebaseDatabase database = FirebaseDatabase.instance;
-    DatabaseReference starCountRef = database.ref();
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    get();
     FirebaseMessaging.onMessage.listen((message) {
       log('Got a message whilst in the foreground!');
       log('Message data: ${message.data}');
@@ -33,6 +36,20 @@ class Home extends StatelessWidget {
         Get.snackbar(title, body);
       }
     });
+    super.initState();
+  }
+
+  Future get() async {
+    final box = GetStorage();
+    log(box.read("nama"));
+    await FirebaseMessaging.instance.subscribeToTopic(box.read("nama"));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    FirebaseDatabase database = FirebaseDatabase.instance;
+    DatabaseReference starCountRef = database.ref();
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +64,7 @@ class Home extends StatelessWidget {
               Icons.logout,
             ),
             onPressed: () async {
-              await firestore.collection('mac').doc(id).update(
+              await firestore.collection('mac').doc(widget.id).update(
                 {
                   "isLogin": false,
                 },
@@ -59,6 +76,8 @@ class Home extends StatelessWidget {
               box.remove(
                 'mac',
               );
+              await FirebaseMessaging.instance
+                  .unsubscribeFromTopic(box.read("nama"));
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -90,8 +109,9 @@ class Home extends StatelessWidget {
                 var data = snapshot.data?.snapshot.value as Map;
                 return HomeSucess(
                   data: data,
+                  mac: widget.mac,
                   starCountRef: starCountRef,
-                  id: mac,
+                  id: widget.mac,
                 );
               } else {
                 return const Text('Empty data');

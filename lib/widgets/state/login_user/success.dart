@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -128,6 +129,8 @@ class LoginUserSuccess extends StatelessWidget {
                         final box = GetStorage();
                         box.write('isLogin', dataMac!.id);
                         box.write('mac', dataMac!.data()['value']);
+                        box.write('nama', dataMac!.data()['nama']);
+                        
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
