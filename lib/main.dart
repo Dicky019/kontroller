@@ -26,8 +26,7 @@ void main() async {
 
   await GetStorage.init();
 
-    
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
 }

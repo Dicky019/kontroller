@@ -15,37 +15,9 @@ import '../widgets/state/loading.dart';
 import '../widgets/state/error.dart';
 import 'login_admin.dart';
 
-class Admin extends StatefulWidget {
+class Admin extends StatelessWidget {
   final String id;
   const Admin({super.key, required this.id});
-
-  @override
-  State<Admin> createState() => _AdminState();
-}
-
-class _AdminState extends State<Admin> {
-  @override
-  void initState() {
-    get();
-    FirebaseMessaging.onMessage.listen((message) {
-      log('Got a message whilst in the foreground!');
-      log('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        log('Message also contained a notification: ${message.notification?.body ?? "kosong"}');
-        String title = message.notification?.title ?? "Notif";
-        String body = message.notification?.body ?? "kosong";
-        Get.snackbar(title, body);
-      }
-    });
-    super.initState();
-  }
-
-  Future get() async {
-    final box = GetStorage();
-    log(box.read("nama"));
-    await FirebaseMessaging.instance.subscribeToTopic(box.read("nama"));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +93,7 @@ class _AdminState extends State<Admin> {
               Icons.logout,
             ),
             onPressed: () async {
-              await firestore.collection('mac').doc(widget.id).update(
+              await firestore.collection('mac').doc(id).update(
                 {
                   "isLogin": false,
                 },
@@ -136,8 +108,6 @@ class _AdminState extends State<Admin> {
               box.remove(
                 'mac',
               );
-              await FirebaseMessaging.instance
-                  .unsubscribeFromTopic(box.read("nama"));
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
