@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "1056939777168",
+    "firebase_url": "https://skripsi-6f26d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "skripsi-6f26d",
+    "storage_bucket": "skripsi-6f26d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056939777168:android:70343ce932c571468f4c15",
+        "android_client_info": {
+          "package_name": "com.example.kontroler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056939777168-iuuf2dnp83cg86v6ifk4vnh9hc4sei5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKvH9MhzXIoE90KxCvLGhtGIAheyTLjgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056939777168-iuuf2dnp83cg86v6ifk4vnh9hc4sei5r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1056939777168-ea49j36217d23l5mp7rsj43ughqrghrv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kontroler"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056939777168:android:50c352287a83e64f8f4c15",
+        "android_client_info": {
+          "package_name": "com.example.kontroller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056939777168-iuuf2dnp83cg86v6ifk4vnh9hc4sei5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKvH9MhzXIoE90KxCvLGhtGIAheyTLjgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056939777168-iuuf2dnp83cg86v6ifk4vnh9hc4sei5r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1056939777168-ea49j36217d23l5mp7rsj43ughqrghrv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kontroler"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
