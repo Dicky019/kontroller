@@ -78,6 +78,7 @@ class _HomeState extends State<Home> {
               );
               await FirebaseMessaging.instance
                   .unsubscribeFromTopic(box.read("nama"));
+              await database.ref("/login").set("");
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(

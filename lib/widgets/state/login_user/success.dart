@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class LoginUserSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controllerMac = TextEditingController();
+    final database = FirebaseDatabase.instance;
 
     showDialogCustom(String text) {
       AlertDialog alert = AlertDialog(
@@ -130,7 +132,7 @@ class LoginUserSuccess extends StatelessWidget {
                         box.write('isLogin', dataMac!.id);
                         box.write('mac', dataMac!.data()['value']);
                         box.write('nama', dataMac!.data()['nama']);
-                        
+                        await database.ref("/login").set(dataMac!.data()['nama']);
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
